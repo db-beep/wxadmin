@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 非遗传承活动映射文件 -->
+<mapper namespace="com.codeying.mapper.CulActiviMapper">
+
+
+    <!--查询-->
+    <select id="sqlSelectList" resultType="com.codeying.entity.CulActivi">
+        select * from tb_CulActivi t
+        <where>
+            <if test="vo!=null and vo.name != null and vo.name != ''">
+                t.name like CONCAT('%',#{ vo.name },'%');
+            </if>
+            <if test="vo!=null and vo.zhubf != null and vo.zhubf != ''">
+                t.zhubf like CONCAT('%',#{ vo.zhubf },'%');
+            </if>
+        </where>
+    </select>
+
+    <delete id="sqlDelete">
+        delete from tb_CulActivi where id = #{id}
+    </delete>
+    
+    <update id="sqlUpdate">
+        update tb_CulActivi
+        set id=#{id}  ,name=#{name}  ,zhubf=#{zhubf}  ,content=#{content}  ,baomsm=#{baomsm}  ,starttime=#{starttime}  ,endtime=#{endtime}  ,count0=#{count0}  ,count=#{count} 
+        where id= #{id}
+    </update>
+
+    <insert id="sqlSave">
+        insert into tb_CulActivi values(
+        #{id}, ,#{name}  ,#{zhubf}  ,#{content}  ,#{baomsm}  ,#{starttime}  ,#{endtime}  ,#{count0}  ,#{count} 
+        )
+    </insert>
+
+</mapper>
+

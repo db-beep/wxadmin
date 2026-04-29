@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 反馈与建议映射文件 -->
+<mapper namespace="com.codeying.mapper.FankuiMapper">
+
+
+    <!--查询-->
+    <select id="sqlSelectList" resultType="com.codeying.entity.Fankui">
+        select * from tb_Fankui t
+        <where>
+            <if test="vo!=null and vo.userid != null and vo.userid != ''">
+                t.userid like CONCAT('%',#{ vo.userid },'%');
+            </if>
+            <if test="vo!=null and vo.inid != null and vo.inid != ''">
+                t.inid like CONCAT('%',#{ vo.inid },'%');
+            </if>
+            <if test="vo!=null and vo.title != null and vo.title != ''">
+                t.title like CONCAT('%',#{ vo.title },'%');
+            </if>
+            <if test="vo!=null and vo.state != null and vo.state != ''">
+                t.state like CONCAT('%',#{ vo.state },'%');
+            </if>
+        </where>
+    </select>
+
+    <delete id="sqlDelete">
+        delete from tb_Fankui where id = #{id}
+    </delete>
+    
+    <update id="sqlUpdate">
+        update tb_Fankui
+        set id=#{id}  ,userid=#{userid}  ,inid=#{inid}  ,title=#{title}  ,createtime=#{createtime}  ,state=#{state}  ,content=#{content} 
+        where id= #{id}
+    </update>
+
+    <insert id="sqlSave">
+        insert into tb_Fankui values(
+        #{id}, ,#{userid}  ,#{inid}  ,#{title}  ,#{createtime}  ,#{state}  ,#{content} 
+        )
+    </insert>
+
+</mapper>
+

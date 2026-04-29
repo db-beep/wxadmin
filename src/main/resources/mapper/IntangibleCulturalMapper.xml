@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 非遗文化科普映射文件 -->
+<mapper namespace="com.codeying.mapper.IntangibleCulturalMapper">
+
+    <!--查询收藏最多的前几个-->
+    <select id="topN" resultType="com.codeying.entity.IntangibleCultural">
+        select w.*,count(s.id) as starCount
+        from tb_intangibleCultural w left JOIN tb_star s on w.id = s.itemid and itemtype='intangibleCultural'
+        group by w.id order by starCount desc, publishtime desc
+    </select>
+
+    <!--查询-->
+    <select id="sqlSelectList" resultType="com.codeying.entity.IntangibleCultural">
+        select * from tb_IntangibleCultural t
+        <where>
+            <if test="vo!=null and vo.showtitle != null and vo.showtitle != ''">
+                t.showtitle like CONCAT('%',#{ vo.showtitle },'%');
+            </if>
+            <if test="vo!=null and vo.fabjg != null and vo.fabjg != ''">
+                t.fabjg like CONCAT('%',#{ vo.fabjg },'%');
+            </if>
+            <if test="vo!=null and vo.labels != null and vo.labels != ''">
+                t.labels like CONCAT('%',#{ vo.labels },'%');
+            </if>
+        </where>
+    </select>
+
+    <delete id="sqlDelete">
+        delete from tb_IntangibleCultural where id = #{id}
+    </delete>
+    
+    <update id="sqlUpdate">
+        update tb_IntangibleCultural
+        set id=#{id}  ,showpic=#{showpic}  ,showtitle=#{showtitle}  ,fabjg=#{fabjg}  ,labels=#{labels}  ,showdesc=#{showdesc}  ,showdetail=#{showdetail}  ,publishtime=#{publishtime}  ,vv=#{vv} 
+        where id= #{id}
+    </update>
+
+    <insert id="sqlSave">
+        insert into tb_IntangibleCultural values(
+        #{id}, ,#{showpic}  ,#{showtitle}  ,#{fabjg}  ,#{labels}  ,#{showdesc}  ,#{showdetail}  ,#{publishtime}  ,#{vv} 
+        )
+    </insert>
+
+</mapper>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 非遗活动报名映射文件 -->
+<mapper namespace="com.codeying.mapper.BaomMapper">
+
+
+    <!--查询-->
+    <select id="sqlSelectList" resultType="com.codeying.entity.Baom">
+        select * from tb_Baom t
+        <where>
+            <if test="vo!=null and vo.userid != null and vo.userid != ''">
+                t.userid like CONCAT('%',#{ vo.userid },'%');
+            </if>
+            <if test="vo!=null and vo.acid != null and vo.acid != ''">
+                t.acid like CONCAT('%',#{ vo.acid },'%');
+            </if>
+            <if test="vo!=null and vo.jig != null and vo.jig != ''">
+                t.jig like CONCAT('%',#{ vo.jig },'%');
+            </if>
+            <if test="vo!=null and vo.remark != null and vo.remark != ''">
+                t.remark like CONCAT('%',#{ vo.remark },'%');
+            </if>
+            <if test="vo!=null and vo.state != null and vo.state != ''">
+                t.state like CONCAT('%',#{ vo.state },'%');
+            </if>
+        </where>
+    </select>
+
+    <delete id="sqlDelete">
+        delete from tb_Baom where id = #{id}
+    </delete>
+    
+    <update id="sqlUpdate">
+        update tb_Baom
+        set id=#{id}  ,userid=#{userid}  ,acid=#{acid}  ,jig=#{jig}  ,remark=#{remark}  ,createtime=#{createtime}  ,state=#{state} 
+        where id= #{id}
+    </update>
+
+    <insert id="sqlSave">
+        insert into tb_Baom values(
+        #{id}, ,#{userid}  ,#{acid}  ,#{jig}  ,#{remark}  ,#{createtime}  ,#{state} 
+        )
+    </insert>
+
+</mapper>
+

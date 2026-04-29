@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 非遗机构映射文件 -->
+<mapper namespace="com.codeying.mapper.InstitutionMapper">
+
+
+    <!--查询-->
+    <select id="sqlSelectList" resultType="com.codeying.entity.Institution">
+        select * from tb_Institution t
+        <where>
+            <if test="vo!=null and vo.username != null and vo.username != ''">
+                t.username like CONCAT('%',#{ vo.username },'%');
+            </if>
+            <if test="vo!=null and vo.name != null and vo.name != ''">
+                t.name like CONCAT('%',#{ vo.name },'%');
+            </if>
+        </where>
+    </select>
+
+    <delete id="sqlDelete">
+        delete from tb_Institution where id = #{id}
+    </delete>
+    
+    <update id="sqlUpdate">
+        update tb_Institution
+        set id=#{id}  ,username=#{username}  ,password=#{password}  ,name=#{name}  ,avatar=#{avatar}  ,tele=#{tele}  ,place=#{place}  ,description=#{description} 
+        where id= #{id}
+    </update>
+
+    <insert id="sqlSave">
+        insert into tb_Institution values(
+        #{id}, ,#{username}  ,#{password}  ,#{name}  ,#{avatar}  ,#{tele}  ,#{place}  ,#{description} 
+        )
+    </insert>
+
+</mapper>
+
